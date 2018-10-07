@@ -23,42 +23,55 @@
   - name: "template_name"
     prompt: "Template name"
     default: "Template-Fedora18"
+    private: no
   - name: "datacenter_name"
     prompt: "vSphere Datacenter Name"
     default: "siw.network"
+    private: no
   - name: "esxi"
     prompt: "ESXi Hostname"
     default: "esxi.siw.network"
+    private: no
   - name: "ram"
     prompt: "RAM in MB"
     default: "2048"
+    private: no
   - name: "cpu"
     prompt: "Number of CPUs"
-    default: "2"    
+    default: "2"
+    private: no
   - name: "vm_dns1"
     prompt: "First DNS Server"
     default: "10.0.1.1"
+    private: no
   - name: "vm_dns2"
     prompt: "Second DNS Server"
     default: "1.1.1.1"
+    private: no
   - name: "vm_domain"
     prompt: "Domain"
     default: "siw.network"
+    private: no
   - name: "vm_password"
     prompt: "Root Password"
     default: "secret"
+    private: yes
   - name: "vm_iface"
     prompt: "NIC Name"
-    default: "ens192"   
+    default: "ens192"
+    private: no
   - name: "ip"
     prompt: "IP Address"
     default: "10.0.1.123"
+    private: no
   - name: "netmask"
     prompt: "Netmask"
     default: "255.255.255.0"
+    private: no
   - name: "gateway"
     prompt: "Gateway"
-    default: "10.0.1.1"    
+    default: "10.0.1.1"
+    private: no
     
   tasks:
   - name: Create a VM from a template
