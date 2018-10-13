@@ -28,6 +28,10 @@
     prompt: "vSphere Datacenter Name"
     default: "siw.network"
     private: no
+  - name: "folder"
+    prompt: "Directory for VM files on host"
+    default: "/datastoreSSD/'{{ vm_name }}'"
+    private: no
   - name: "esxi"
     prompt: "ESXi Hostname"
     default: "esxi.siw.network"
@@ -84,6 +88,7 @@
       state: poweredon
       template: '{{ template_name }}'
       datacenter: '{{ datacenter_name }}'
+      folder: '{{ folder }}'
       esxi_hostname: '{{ esxi }}'
       hardware:
         memory_mb: '{{ ram }}'
