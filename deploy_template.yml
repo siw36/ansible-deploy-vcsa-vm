@@ -29,8 +29,8 @@
     default: "siw.network"
     private: no
   - name: "folder"
-    prompt: "Directory for VM files on host"
-    default: "/datastoreSSD/'{{ vm_name }}'"
+    prompt: "Folder this VM should be put in"
+    default: "ansible-deployments"
     private: no
   - name: "esxi"
     prompt: "ESXi Hostname"
