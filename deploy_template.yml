@@ -78,6 +78,10 @@
     prompt: "Second DNS Server"
     default: "1.1.1.1"
     private: no
+  - name: "vm_hostname"
+    prompt: "Hostname"
+    default: "template"
+    private: no    
   - name: "vm_domain"
     prompt: "Domain"
     default: "siw.network"
@@ -112,6 +116,7 @@
           dns_servers:
           - '{{ vm_dns1 }}'
           - '{{ vm_dns2 }}'
+          hostname: '{{ vm_hostname }}'
           domain: '{{ vm_domain }}'
 #          password: '{{ vm_password }}'
       wait_for_ip_address: yes
