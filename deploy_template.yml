@@ -3,6 +3,12 @@
   gather_facts: false
   connection: local
   
+- debug:
+  msg: "This script uses customization parameters e.g. network config for the host system."
+  msg: "This feature is not supported for all available OS types."
+  msg: "Check vmware for details: http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf"
+  msg: "Look for a matching playbook if you plan to deploy a host with an OS that is not supported."
+  
   vars_prompt:
   - name: "vcenter_name"
     prompt: "vCenter Hostname"
@@ -36,16 +42,44 @@
     prompt: "ESXi Hostname/IP"
     default: "10.0.1.5"
     private: no
-  - name: "ram"
+  - name: "vm_ram"
     prompt: "RAM in MB"
     default: "2048"
     private: no
-  - name: "cpu"
+  - name: "vm_cpu"
     prompt: "Number of CPUs"
     default: "2"
     private: no
-  - name: "host_network"
+  - name: "vm_host_network"
     prompt: "Network the VM should be connected to"
+    default: "siw.network"
+    private: no
+#  - name: "vm_password"
+#    prompt: "Root Password"
+#    default: "secret"
+#    private: yes
+  - name: "vm_ip"
+    prompt: "IP Address"
+    default: "10.0.1.123"
+    private: no
+  - name: "vm_netmask"
+    prompt: "Netmask"
+    default: "255.255.255.0"
+    private: no
+  - name: "vm_gateway"
+    prompt: "Gateway"
+    default: "10.0.1.1"
+    private: no
+  - name: "vm_dns1"
+    prompt: "First DNS Server"
+    default: "10.0.1.1"
+    private: no
+  - name: "vm_dns2"
+    prompt: "Second DNS Server"
+    default: "1.1.1.1"
+    private: no
+  - name: "vm_domain"
+    prompt: "Domain"
     default: "siw.network"
     private: no
  
@@ -63,12 +97,23 @@
       folder: '{{ folder }}'
       esxi_hostname: '{{ esxi }}'
       hardware:
-        memory_mb: '{{ ram }}'
-        num_cpus: '{{ cpu }}'
+        memory_mb: '{{ vm_ram }}'
+        num_cpus: '{{ vm_cpu }}'
         scsi: lsilogic
       networks:
-      - name: '{{ host_network }}'
+      - name: '{{ vm_host_network }}'
         start_connected: true
+        ip: '{{ vm_ip }}'
+        netmask: '{{ vm_netmask }}'
+        gateway: '{{ vm_gateway }}'
+        type: static
+        customization:
+          autologon: yes
+          dns_servers:
+          - '{{ vm_dns1 }}'
+          - '{{ vm_dns2 }}'
+          domain: '{{ vm_domain }}'
+#          password: '{{ vm_password }}'
       wait_for_ip_address: yes
     delegate_to: localhost
     register: deploy
