@@ -29,8 +29,8 @@
     default: "siw.network"
     private: no
   - name: "folder"
-    prompt: "Folder this VM should be put in"
-    default: "ansible-deployments"
+    prompt: "Folder this VM should be put in (usually <datacenter name>/vm)"
+    default: "siw.network/vm"
     private: no
   - name: "esxi"
     prompt: "ESXi Hostname"
