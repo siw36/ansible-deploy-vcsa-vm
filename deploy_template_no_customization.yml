@@ -44,7 +44,11 @@
     prompt: "Number of CPUs"
     default: "2"
     private: no
- 
+  - name: "vm_state"
+    prompt: "State (present/absent/poweredon/poweredoff/restarted/suspended/shutdownguest/rebootguest)"
+    default: "poweredon"
+    private: no
+
   tasks:
   - name: Create a VM from a template
     vmware_guest:
@@ -53,7 +57,7 @@
       password: '{{ vsphere_password }}'
       validate_certs: no
       name: '{{ vm_name }}'
-      state: poweredon
+      state: '{{ vm_state }}'
       template: '{{ template_name }}'
       datacenter: '{{ datacenter_name }}'
       folder: '{{ folder }}'
