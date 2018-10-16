@@ -33,8 +33,8 @@
     default: "siw.network/vm"
     private: no
   - name: "esxi"
-    prompt: "ESXi Hostname"
-    default: "esxi.siw.network"
+    prompt: "ESXi Hostname/IP"
+    default: "10.0.1.5"
     private: no
   - name: "ram"
     prompt: "RAM in MB"
@@ -44,38 +44,38 @@
     prompt: "Number of CPUs"
     default: "2"
     private: no
-  - name: "vm_dns1"
-    prompt: "First DNS Server"
-    default: "10.0.1.1"
-    private: no
-  - name: "vm_dns2"
-    prompt: "Second DNS Server"
-    default: "1.1.1.1"
-    private: no
-  - name: "vm_domain"
-    prompt: "Domain"
-    default: "siw.network"
-    private: no
-  - name: "vm_password"
-    prompt: "Root Password"
-    default: "secret"
-    private: yes
-  - name: "vm_iface"
-    prompt: "NIC Name"
-    default: "ens192"
-    private: no
-  - name: "ip"
-    prompt: "IP Address"
-    default: "10.0.1.123"
-    private: no
-  - name: "netmask"
-    prompt: "Netmask"
-    default: "255.255.255.0"
-    private: no
-  - name: "gateway"
-    prompt: "Gateway"
-    default: "10.0.1.1"
-    private: no
+ # - name: "vm_dns1"
+ #   prompt: "First DNS Server"
+ #   default: "10.0.1.1"
+ #   private: no
+ # - name: "vm_dns2"
+ #   prompt: "Second DNS Server"
+ #   default: "1.1.1.1"
+ #   private: no
+ # - name: "vm_domain"
+ #   prompt: "Domain"
+ #   default: "siw.network"
+ #   private: no
+ # - name: "vm_password"
+ #   prompt: "Root Password"
+ #   default: "secret"
+ #   private: yes
+ # - name: "vm_iface"
+ #   prompt: "NIC Name"
+ #   default: "ens192"
+ #   private: no
+ # - name: "ip"
+ #   prompt: "IP Address"
+ #   default: "10.0.1.123"
+ #   private: no
+ # - name: "netmask"
+ #   prompt: "Netmask"
+ #   default: "255.255.255.0"
+ #   private: no
+ # - name: "gateway"
+ #   prompt: "Gateway"
+ #   default: "10.0.1.1"
+ #   private: no
     
   tasks:
   - name: Create a VM from a template
@@ -94,20 +94,20 @@
         memory_mb: '{{ ram }}'
         num_cpus: '{{ cpu }}'
         scsi: lsilogic
-      customization:
-        autologon: yes
-        dns_servers:
-        - '{{ vm_dns1 }}'
-        - '{{ vm_dns2 }}'
-        domain: '{{ vm_domain }}'
-        password: '{{ vm_password }}'
-      networks:
-      - name: '{{ vm_iface }}'
-        ip: '{{ ip }}'
-        netmask: '{{ netmask }}'
-        gateway: '{{ gateway }}'
-        type: static
-        start_connected: true
+#      customization:
+#        autologon: yes
+#        dns_servers:
+#        - '{{ vm_dns1 }}'
+#        - '{{ vm_dns2 }}'
+#        domain: '{{ vm_domain }}'
+#        password: '{{ vm_password }}'
+#      networks:
+#      - name: '{{ vm_iface }}'
+#        ip: '{{ ip }}'
+#        netmask: '{{ netmask }}'
+#        gateway: '{{ gateway }}'
+#        type: static
+#        start_connected: true
       wait_for_ip_address: yes
     delegate_to: localhost
     register: deploy
