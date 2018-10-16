@@ -1,16 +1,27 @@
-# ansible-deploy-vcsa-vm
-Deploy a new VM from a vCenter template and configure networking and hostname
+# Deploy a new VM from a vCenter template and configure networking and hostname
 
-Deps
+## __Dependencies:__
 - pip
 - pyvmomi
 - ansible
 - openssh-clients
 - openssh
+Consider running a preperation script to match these dependencies e.g. https://github.com/siw36/prepare-workstation
 
-The template you want to deploy must be available on the destination esxi host. Deployment of a template from a vCenter library is not yet supported.
+## __Before you start:__
+The template you want to deploy must be available on the destination esxi host.
+Deployment of a template from a vCenter library is not yet supported.
 
-consider running a preperation script e.g. https://github.com/siw36/prepare-workstation
-
-To find out wich os is supported for vmware_guest customization see:
+The vmware vsphere_guest configuration option is not supported for every guest OS.
+To find out wich OS is supported for vmware_guest customization see:
 http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf
+
+## __Wich playbook to use:__
+### The guest OS is supported for customization
+- deploy_template.yml
+
+### The guest OS is NOT supported for customization
+- deploy_template_no_customization.yml
+
+### You want to deploy more than one vm from a template
+- use the matching playbook with the \_loop extention
