@@ -3,12 +3,6 @@
   gather_facts: false
   connection: local
   
-- debug:
-  msg: "This script uses customization parameters e.g. network config for the host system."
-  msg: "This feature is not supported for all available OS types."
-  msg: "Check vmware for details: http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf"
-  msg: "Look for a matching playbook if you plan to deploy a host with an OS that is not supported."
-  
   vars_prompt:
   - name: "vcenter_name"
     prompt: "vCenter Hostname"
