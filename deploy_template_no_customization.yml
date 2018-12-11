@@ -2,70 +2,27 @@
 - hosts: localhost
   gather_facts: false
   connection: local
-  
-  vars_prompt:
-  - name: "vcenter_name"
-    prompt: "vCenter Hostname"
-    default: "vcenter.siw.network"
-    private: no
-  - name: "vsphere_user"
-    prompt: "vCenter Username"
-    default: "administrator@vsphere.siw.network"
-    private: no    
-  - name: "vsphere_password"
-    prompt: "vCenter Password"
-    default: "secret"
-    private: yes
-  - name: "vm_name"
-    prompt: "VM Name"
-    default: "new_vm_01"
-    private: no
-  - name: "template_name"
-    prompt: "Template name"
-    default: "Template-FedoraServer28"
-    private: no
-  - name: "datacenter_name"
-    prompt: "vSphere Datacenter Name"
-    default: "siw.network"
-    private: no
-  - name: "folder"
-    prompt: "Folder this VM should be put in (usually <datacenter name>/vm)"
-    default: "siw.network/vm"
-    private: no
-  - name: "esxi"
-    prompt: "ESXi Hostname/IP"
-    default: "10.0.1.5"
-    private: no
-  - name: "ram"
-    prompt: "RAM in MB"
-    default: "2048"
-    private: no
-  - name: "cpu"
-    prompt: "Number of CPUs"
-    default: "2"
-    private: no
-  - name: "vm_state"
-    prompt: "State (present/absent/poweredon/poweredoff/restarted/suspended/shutdownguest/rebootguest)"
-    default: "poweredon"
-    private: no
-
+  vars_files:
+    - vars/main.yml
+    - vars/deployments.yml
   tasks:
   - name: Create a VM from a template
     vmware_guest:
-      hostname: '{{ vcenter_name }}'
-      username: '{{ vsphere_user }}'
-      password: '{{ vsphere_password }}'
+      hostname: "{{ vCenterName }}"
+      username: "{{ vSphereUser }}"
+      password: "{{ vSpherePassword }}"
       validate_certs: no
-      name: '{{ vm_name }}'
-      state: '{{ vm_state }}'
-      template: '{{ template_name }}'
-      datacenter: '{{ datacenter_name }}'
-      folder: '{{ folder }}'
-      esxi_hostname: '{{ esxi }}'
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+      template: "{{ template }}"
+      datacenter: "{{ datacenter }}"
+      folder: "{{ folder }}"
+      esxi_hostname: "{{ host }}"
       hardware:
-        memory_mb: '{{ ram }}'
-        num_cpus: '{{ cpu }}'
+        memory_mb: "{{ item.ram }}"
+        num_cpus: "{{ item.cpu }}"
         scsi: lsilogic
-      wait_for_ip_address: yes
+      wait_for_ip_address: "{{ waitForIp }}"
     delegate_to: localhost
     register: deploy
+    with_items: "{{ deployments }}"
