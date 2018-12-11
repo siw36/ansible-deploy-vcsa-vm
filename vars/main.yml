@@ -1,0 +1,9 @@
+---
+vCenterName: <vCenter Hostname/IP>
+vSphereUser: <vCenter Username>
+vSpherePassword: <vCenter Password>
+template: <Template name>
+datacenter: <Datacenter Name>
+folder: <Folder this VM should be put in (usually <datacenter name>/vm)>
+host: <ESXi Hostname/IP>
+waitForIp: <yes/no>

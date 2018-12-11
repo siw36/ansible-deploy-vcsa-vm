@@ -17,11 +17,5 @@ To find out wich OS is supported for vmware_guest customization see:
 http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf
 
 ## __Wich playbook to use:__
-### The guest OS is supported for customization
-- deploy_template.yml
-
 ### The guest OS is NOT supported for customization
 - deploy_template_no_customization.yml
-
-### You want to deploy more than one vm from a template
-- use the matching playbook with the \_loop extention

@@ -1,0 +1,11 @@
+---
+deployments:
+  - name: <vm name>
+    ram: <amount in MB>
+    cpu: <number of cores>
+    state: <present/absent/poweredon/poweredoff/restarted/suspended/shutdownguest/rebootguest>
+  - name: <vm name>
+    ram: <amount in MB>
+    cpu: <number of cores>
+    state: <present/absent/poweredon/poweredoff/restarted/suspended/shutdownguest/rebootguest>
+  
